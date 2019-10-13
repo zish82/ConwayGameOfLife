@@ -5,17 +5,15 @@ using System.Collections.Generic;
 
 namespace Tests
 {
-    public class Tests
+    public class BoardTests
     {
         private const int width = 32;
         private const int height = 32;
-        private BoardService service;
         private Board board;
 
         [SetUp]
         public void Setup()
         {
-            service = new BoardService();
             board = service.GetBoard(width, height);
         }
 
