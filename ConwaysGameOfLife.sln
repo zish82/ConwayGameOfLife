@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marken", "Marken\Marken.csproj", "{5373CC9B-068B-4763-8808-92CB756D6115}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfLife", "Marken\GameOfLife.csproj", "{5373CC9B-068B-4763-8808-92CB756D6115}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marken.Tests", "Marken.Tests\Marken.Tests.csproj", "{210EB735-DD74-4C17-9A8E-1A3C408D4466}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfLife.Tests", "Marken.Tests\GameOfLife.Tests.csproj", "{210EB735-DD74-4C17-9A8E-1A3C408D4466}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
