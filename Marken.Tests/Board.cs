@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Tests
 {
@@ -15,11 +16,6 @@ namespace Tests
             Cells = new bool[width, height];
         }
 
-        public void SetState(int dimension, int length)
-        {
-            Cells[dimension, length] = true;
-        }
-
         public bool CanStayAlive(int dimension, int cell)
         {
             //if (Cells[dimension, cell] == false)
@@ -27,6 +23,14 @@ namespace Tests
             int aliveNeighbours = GetLiveNeighbours(dimension, cell);
 
             return aliveNeighbours == 2 || aliveNeighbours == 3;
+        }
+
+        public void SetState((int, int)[] p)
+        {
+            Array.ForEach(p, e =>
+            {
+                Cells[e.Item1, e.Item2] = true;
+            });
         }
 
         private int GetLiveNeighbours(int dimension, int cell)

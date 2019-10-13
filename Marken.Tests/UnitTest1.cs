@@ -27,7 +27,7 @@ namespace Tests
         [Test]
         public void InitializeBoardWithInitialState()
         {
-            board.SetState(2, 3);
+            board.SetState(new (int, int)[] { (2, 3) });
             
             board.Cells[2, 3].Should().Be(true);
         }
@@ -35,7 +35,7 @@ namespace Tests
         [Test]
         public void CellWithFewerThan2LiveNeighboursDie()
         {
-            board.SetState(2, 3);
+            board.SetState(new (int, int)[] { (2, 3) });
 
             var isAlive = board.CanStayAlive(2, 3);
 
@@ -45,9 +45,11 @@ namespace Tests
         [Test]
         public void CellWith2Or3LiveNeighboursSurvive()
         {
-            board.SetState(1, 3);
-            board.SetState(2, 3);
-            board.SetState(3, 3);
+            board.SetState(new (int, int)[] {
+                (1, 3),
+                (2, 3),
+                (3, 3)
+            });
 
             var isAlive = board.CanStayAlive(2, 3);
 
@@ -57,11 +59,12 @@ namespace Tests
         [Test]
         public void DeadCellWith3LiveNeighboursBecomeALive()
         {
-            board.SetState(1, 3);
-            //board.SetState(2, 3);
-            board.SetState(3, 3);
-            board.SetState(2, 4);
-
+            board.SetState(new (int, int)[] {
+                (1, 3),
+                (2, 4),
+                (3, 3)
+            });
+            
             var isAlive = board.CanStayAlive(2, 3);
 
             isAlive.Should().Be(true);
