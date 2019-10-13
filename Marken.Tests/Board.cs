@@ -18,8 +18,6 @@ namespace Tests
 
         public bool CanStayAlive(int dimension, int cell)
         {
-            //if (Cells[dimension, cell] == false)
-            //    return false;
             int aliveNeighbours = GetLiveNeighbours(dimension, cell);
 
             return aliveNeighbours == 2 || aliveNeighbours == 3;
