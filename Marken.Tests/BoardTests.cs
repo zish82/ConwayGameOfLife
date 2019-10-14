@@ -1,10 +1,12 @@
 using FluentAssertions;
+using GameOfLife;
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace Tests
 {
+    [TestFixture]
     public class BoardTests
     {
         private const int width = 32;
@@ -22,8 +24,8 @@ namespace Tests
         [Test]
         public void WhenInitializingBoard()
         {
-            board.Width.Should().Be(width);
-            board.Height.Should().Be(height);
+            board.Dimension.Should().Be(width);
+            board.Length.Should().Be(height);
         }
 
         [Test]
@@ -72,31 +74,30 @@ namespace Tests
             isAlive.Should().Be(true);
         }
 
-        [Test, TestCaseSource(typeof(TestDataSourceClass), "TestCases")]
+        [Test, TestCaseSource("TestCases")]
         public bool CellsWhichSatisfyConwaysRulesCanGoToNextGeneration(List<(int, int)> states)
         {
             //Arrange
-            board.SetState(states.ToArray());
+            board.SetState(states.ToArray());//TestCaseSource didn't like receiving tuple array, so had to use list
 
             //Act
             var canGoToNextGen = board.CanStayAlive(2, 3);
 
             //Assert
             return canGoToNextGen;
-        }        
+        }
+
+            public static IEnumerable TestCases
+            {
+                get
+                {
+                    yield return new TestCaseData(new List<(int, int)> { (1, 3), (2, 4), (3, 3) }).Returns(true).SetDescription("Dead cell has 3 live neighbours");
+                    yield return new TestCaseData(new List<(int, int)> { (1, 3), (2, 3), (3, 3) }).Returns(true).SetDescription("Alive cell has 2 live neighbours");
+                    yield return new TestCaseData(new List<(int, int)> { (5, 3), (2, 3), (3, 3) }).Returns(false).SetDescription("live cell has less than 2 live neighbours");
+                    yield return new TestCaseData(new List<(int, int)> { (1, 3), (2, 3), (3, 3), (2, 4), (2, 2) }).Returns(false).SetDescription("live cell has more than 3 live neighbours");
+                }
+            }
     }
 
-    public class TestDataSourceClass
-    {
-        public static IEnumerable TestCases
-        {
-            get
-            {
-                yield return new TestCaseData(new List<(int, int)> { (1, 3), (2, 4), (3, 3) }).Returns(true).SetDescription("Dead cell has 3 live neighbours");
-                yield return new TestCaseData(new List<(int, int)>  { (1, 3), (2, 3), (3, 3) }).Returns(true).SetDescription("Alive cell has 2 live neighbours");
-                yield return new TestCaseData(new List<(int, int)> { (5, 3), (2, 3), (3, 3) }).Returns(false).SetDescription("live cell has less than 2 live neighbours");
-                yield return new TestCaseData(new List<(int, int)> { (1, 3), (2, 3), (3, 3), (2, 4), (2, 2) }).Returns(false).SetDescription("live cell has more than 3 live neighbours");
-            }
-        }
-    }
+    
 }
